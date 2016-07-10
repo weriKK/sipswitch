@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Threading;
 
 namespace sipswitch
 {
@@ -10,6 +7,12 @@ namespace sipswitch
     {
         static void Main(string[] args)
         {
+            Thread.CurrentThread.Name = "main";
+
+            TransportLayer TL = new TransportLayer();
+            Thread TLCore = new Thread(TL.Start);
+            TLCore.Start(666);
         }
+
     }
 }
