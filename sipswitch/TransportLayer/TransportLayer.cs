@@ -1,14 +1,24 @@
 ﻿using System;
-using System.Threading;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 
 namespace sipswitch
 {
     class TransportLayer
     {
-        public void Start(object param)
+        List<ListeningPoint> listeningPoints;
+
+        public TransportLayer()
         {
-            Thread.CurrentThread.Name = "TLCore";
-            throw new NotImplementedException();
+            listeningPoints = new List<ListeningPoint>();
+            listeningPoints.Add(new ListeningPoint(ProtocolType.Udp, IPAddress.Parse("192.168.1.101"), 5060));
+            listeningPoints.Add(new ListeningPoint(ProtocolType.Tcp, IPAddress.Parse("192.168.1.101"), 5060));
+
+            foreach (ListeningPoint lp in listeningPoints)
+            {
+                Console.WriteLine("LP-{0}: {1} {2}:{3}", lp.id, lp.protocol, lp.address, lp.port );
+            }
         }
     }
 }
